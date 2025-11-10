@@ -5,13 +5,65 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 
-    'Helvetica Neue', 'Segoe UI', sans-serif;
+  font-family: 'Gochi Hand', cursive, -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+  background: #faf8f3;
   min-height: 100vh;
-  color: #1d1d1f;
+  color: #3d2817;
+  position: relative;
+}
+
+/* Octagon and dot tile pattern background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #faf8f3;
+  background-image: 
+    /* Grid pattern for tile structure - black grout lines - lighter */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 38px,
+      rgba(0, 0, 0, 0.06) 38px,
+      rgba(0, 0, 0, 0.06) 42px,
+      transparent 42px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 38px,
+      rgba(0, 0, 0, 0.06) 38px,
+      rgba(0, 0, 0, 0.06) 42px,
+      transparent 42px,
+      transparent 80px
+    ),
+    /* Black square dots at grid intersections - lighter */
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 36px,
+      rgba(0, 0, 0, 0.1) 36px,
+      rgba(0, 0, 0, 0.1) 44px,
+      transparent 44px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 36px,
+      rgba(0, 0, 0, 0.1) 36px,
+      rgba(0, 0, 0, 0.1) 44px,
+      transparent 44px,
+      transparent 80px
+    );
+  pointer-events: none;
+  z-index: 0;
 }
 
 code {
@@ -21,5 +73,7 @@ code {
 
 #root {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 

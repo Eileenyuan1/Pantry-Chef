@@ -8,16 +8,23 @@ function App() {
     <div className="app">
       <div className="container">
         <header className="header">
-          <h1>Pantry Chef</h1>
-          <p className="subtitle">AI-Powered Recipe Generator</p>
+          <div className="header-content">
+            <img 
+              src="/remy-remi.gif" 
+              alt="Remy's Cookbook" 
+              className="header-image"
+            />
+            <h1 className="header-title">Remy's Cookbook</h1>
+            <p className="subtitle">Find the magic in your pantry.</p>
+          </div>
         </header>
 
         <div className="main-content">
           {isLoading ? (
-            <div className="loading">Loading recipes</div>
+            <div className="loading">Cooking up recipes...</div>
           ) : recipes?.results && recipes.results.length > 0 ? (
             <div>
-              <h2>Recipes</h2>
+              <h2>Today's Specials</h2>
               <div className="recipes-list">
                 {recipes.results.map((recipe) => (
                   <div key={recipe.id} className="recipe-item">
@@ -28,9 +35,9 @@ function App() {
             </div>
           ) : (
             <div className="empty-state">
-              <div className="empty-state-icon">📝</div>
-              <h3>No recipes yet</h3>
-              <p>Start by generating your first recipe!</p>
+              <div className="empty-state-icon">✨</div>
+              <h3>A Chef's Intuition is Needed...</h3>
+              <p>Tell Remy what's in your fridge, and he'll turn it into something amazing!</p>
             </div>
           )}
         </div>
