@@ -1,0 +1,275 @@
+.ingredient-input {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.ingredient-input-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.ingredient-input-header h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #8B4513;
+  margin-bottom: 8px;
+}
+
+.ingredient-input-header p {
+  font-size: 18px;
+  color: #8B4513;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.ingredient-input-form {
+  margin-bottom: 24px;
+}
+
+.input-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.ingredient-input-field {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-family: inherit;
+  border: 2px solid rgba(139, 69, 19, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #8B4513;
+  transition: all 0.3s ease;
+}
+
+.ingredient-input-field:focus {
+  outline: none;
+  border-color: #8B4513;
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.ingredient-input-field::placeholder {
+  color: #8B4513;
+  opacity: 0.5;
+}
+
+.ingredient-input-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-button {
+  padding: 14px 28px;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #CD853F 0%, #8B4513 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+}
+
+.add-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid rgba(139, 69, 19, 0.2);
+  border-radius: 8px;
+  margin-top: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  color: #8B4513;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid rgba(139, 69, 19, 0.1);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: rgba(255, 248, 220, 0.5);
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(211, 47, 47, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid #d32f2f;
+}
+
+.ingredients-list {
+  margin-top: 24px;
+}
+
+.ingredients-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  min-height: 40px;
+}
+
+.ingredient-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #FFF8DC 0%, #F5DEB3 100%);
+  border: 2px solid rgba(139, 69, 19, 0.3);
+  border-radius: 20px;
+  font-size: 15px;
+  color: #8B4513;
+  font-weight: 500;
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  color: #8B4513;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.remove-button:hover:not(:disabled) {
+  background: rgba(139, 69, 19, 0.2);
+  transform: scale(1.1);
+}
+
+.remove-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.generate-button {
+  padding: 16px 40px;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #FF6B35 0%, #D2691E 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.generate-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #D2691E 0%, #CD853F 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+}
+
+.generate-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.clear-button {
+  padding: 16px 32px;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #8B4513;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(139, 69, 19, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clear-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 1);
+  border-color: #8B4513;
+  transform: translateY(-2px);
+}
+
+.clear-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-wrapper {
+    width: 100%;
+  }
+
+  .add-button {
+    width: 100%;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .generate-button,
+  .clear-button {
+    width: 100%;
+  }
+
+  .ingredient-input-header h2 {
+    font-size: 28px;
+  }
+
+  .ingredient-input-header p {
+    font-size: 16px;
+  }
+}
+
