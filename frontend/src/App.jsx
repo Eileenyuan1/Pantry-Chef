@@ -89,7 +89,7 @@ function App() {
               )}
               {generateError && !errorMessage && (
                 <div className="error-banner">
-                  <strong>Error:</strong> Failed to generate recipe. Please check your OpenAI API key and try again.
+                  <strong>Error:</strong> Failed to generate recipe. Please check your API key and try again.
                 </div>
               )}
             </div>
@@ -104,8 +104,8 @@ function App() {
                 <div>
                   <div className="recipes-header">
                     <h2>Generated Recipes</h2>
-                    <button 
-                      onClick={() => setShowInput(true)} 
+                    <button
+                      onClick={() => setShowInput(true)}
                       className="new-recipe-button"
                     >
                       Generate New Recipe

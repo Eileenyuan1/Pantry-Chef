@@ -150,6 +150,7 @@ if DEBUG:
 
 CORS_ALLOW_CREDENTIALS = True
 
-# OpenAI API Key
+# AI API Keys
+GROQ_API_KEY = os.getenv('GROQ_API_KEY', '')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
 

@@ -21,10 +21,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], url_path='generate')
     def generate(self, request):
         """
-        Generate a recipe from a list of ingredients using OpenAI API.
-        
+        Generate a recipe from a list of ingredients using AI (Groq or OpenAI).
+
         POST /api/recipes/generate/
-        Request body: {"ingredients": ["chicken", "tomatoes", "onions"]}
+        Request body: {"ingredients": ["chicken", "tomatoes"], "cuisine_type": "italian"}
         """
         serializer = IngredientInputSerializer(data=request.data)
         
@@ -35,10 +35,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
             )
         
         ingredients = serializer.validated_data['ingredients']
-        
+        cuisine_preference = serializer.validated_data.get('cuisine_type', '')
+
         try:
-            # Generate recipe using OpenAI
-            recipe_data = generate_recipe(ingredients)
+            # Generate recipe using AI (Groq or OpenAI)
+            recipe_data = generate_recipe(ingredients, cuisine_preference)
             
             # Save recipe to database
             recipe = Recipe.objects.create(
@@ -61,7 +62,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         except ValueError as e:
             logger.error(f"Configuration error: {str(e)}")
             return Response(
-                {"error": "OpenAI API key is not configured. Please set OPENAI_API_KEY in your environment variables."},
+                {"error": "API key is not configured. Please set GROQ_API_KEY or OPENAI_API_KEY in your environment variables."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         except Exception as e:

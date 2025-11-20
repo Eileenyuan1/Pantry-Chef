@@ -1,5 +1,6 @@
 """
-OpenAI service for generating recipes from ingredients.
+AI service for generating recipes from ingredients.
+Supports both OpenAI and Groq APIs.
 """
 import json
 import os
@@ -7,29 +8,44 @@ from openai import OpenAI
 from django.conf import settings
 
 
-def generate_recipe(ingredients_list):
+def generate_recipe(ingredients_list, cuisine_preference=''):
     """
-    Generate a recipe using OpenAI API based on provided ingredients.
-    
+    Generate a recipe using AI API (OpenAI or Groq) based on provided ingredients.
+
     Args:
         ingredients_list: List of ingredient names (e.g., ["chicken", "tomatoes", "onions"])
-    
+        cuisine_preference: Optional preferred cuisine type (e.g., "chinese", "italian")
+
     Returns:
-        dict: Recipe data with title, description, cuisine_type, ingredients, instructions, 
+        dict: Recipe data with title, description, cuisine_type, ingredients, instructions,
               and cooking_time
-    
+
     Raises:
-        Exception: If OpenAI API call fails
+        Exception: If API call fails
     """
-    api_key = os.getenv('OPENAI_API_KEY') or settings.OPENAI_API_KEY
-    
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY is not set in environment variables")
-    
-    client = OpenAI(api_key=api_key)
-    
+
+    groq_api_key = os.getenv('GROQ_API_KEY') or settings.GROQ_API_KEY if hasattr(settings, 'GROQ_API_KEY') else None
+    openai_api_key = os.getenv('OPENAI_API_KEY') or settings.OPENAI_API_KEY
+
+    if groq_api_key:
+        client = OpenAI(
+            api_key=groq_api_key,
+            base_url="https://api.groq.com/openai/v1"
+        )
+        model = "llama-3.3-70b-versatile"
+    elif openai_api_key:
+        client = OpenAI(api_key=openai_api_key)
+        model = "gpt-3.5-turbo"
+    else:
+        raise ValueError("Neither GROQ_API_KEY nor OPENAI_API_KEY is set in environment variables")
+
     # Format ingredients list into a string
     ingredients_str = ", ".join(ingredients_list)
+
+    # Add cuisine preference to the prompt if provided
+    cuisine_instruction = ""
+    if cuisine_preference:
+        cuisine_instruction = f"\nIMPORTANT: The user prefers {cuisine_preference.upper()} cuisine. Please create a {cuisine_preference} recipe and set cuisine_type to '{cuisine_preference}'."
     
     # Create a prompt for recipe generation
     system_prompt = """
@@ -60,14 +76,14 @@ def generate_recipe(ingredients_list):
     - Include all necessary steps and cooking tips
     - If the user provides fewer ingredients, suggest reasonable additions that are commonly available"""
     
-    user_prompt = f"""I have these ingredients: {ingredients_str}. 
+    user_prompt = f"""I have these ingredients: {ingredients_str}.
     Please provide a complete recipe with detailed instructions.
-    Remember, I'm excited to cook! Provide the complete recipe now.
+    Remember, I'm excited to cook! Provide the complete recipe now.{cuisine_instruction}
     Return only valid JSON."""
     
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=model,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
