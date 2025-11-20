@@ -18,4 +18,9 @@ class IngredientInputSerializer(serializers.Serializer):
         min_length=1,
         help_text="List of ingredient names"
     )
+    cuisine_type = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        help_text="Preferred cuisine type (optional)"
+    )
 

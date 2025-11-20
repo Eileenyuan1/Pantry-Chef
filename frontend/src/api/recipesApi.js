@@ -15,10 +15,10 @@ export const recipesApi = createApi({
       providesTags: ['Recipe'],
     }),
     generateRecipe: builder.mutation({
-      query: (ingredients) => ({
+      query: ({ ingredients, cuisineType }) => ({
         url: '/recipes/generate/',
         method: 'POST',
-        body: { ingredients },
+        body: { ingredients, cuisine_type: cuisineType },
       }),
       invalidatesTags: ['Recipe'],
     }),

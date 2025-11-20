@@ -5,8 +5,24 @@ import './IngredientInput.css'
 function IngredientInput({ onGenerate, isLoading }) {
   const [ingredient, setIngredient] = useState('')
   const [ingredients, setIngredients] = useState([])
+  const [cuisineType, setCuisineType] = useState('')
   const [error, setError] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
+
+  const cuisineOptions = [
+    { value: '', label: 'Any Cuisine' },
+    { value: 'chinese', label: 'Chinese' },
+    { value: 'western', label: 'Western' },
+    { value: 'japanese', label: 'Japanese' },
+    { value: 'korean', label: 'Korean' },
+    { value: 'italian', label: 'Italian' },
+    { value: 'mexican', label: 'Mexican' },
+    { value: 'indian', label: 'Indian' },
+    { value: 'thai', label: 'Thai' },
+    { value: 'french', label: 'French' },
+    { value: 'mediterranean', label: 'Mediterranean' },
+    { value: 'american', label: 'American' },
+  ]
 
   // Filter common ingredients based on user input
   const getSuggestions = () => {
@@ -51,7 +67,7 @@ function IngredientInput({ onGenerate, isLoading }) {
       return
     }
     setError('')
-    onGenerate(ingredients)
+    onGenerate({ ingredients, cuisineType })
   }
 
   const handleClear = () => {
@@ -69,6 +85,19 @@ function IngredientInput({ onGenerate, isLoading }) {
 
       <div className="ingredient-input-form">
         <div className="input-group">
+          <select
+            value={cuisineType}
+            onChange={(e) => setCuisineType(e.target.value)}
+            disabled={isLoading}
+            className="cuisine-select-inline"
+          >
+            {cuisineOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+
           <div className="input-wrapper">
             <input
               type="text"
