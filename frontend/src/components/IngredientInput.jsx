@@ -8,6 +8,7 @@ function IngredientInput({ onGenerate, isLoading }) {
   const [cuisineType, setCuisineType] = useState('')
   const [error, setError] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
+  const [showCuisineDropdown, setShowCuisineDropdown] = useState(false)
 
   const cuisineOptions = [
     { value: '', label: 'Any Cuisine' },
@@ -85,18 +86,35 @@ function IngredientInput({ onGenerate, isLoading }) {
 
       <div className="ingredient-input-form">
         <div className="input-group">
-          <select
-            value={cuisineType}
-            onChange={(e) => setCuisineType(e.target.value)}
-            disabled={isLoading}
-            className="cuisine-select-inline"
-          >
-            {cuisineOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <div className="cuisine-selector-wrapper">
+            <button
+              type="button"
+              onClick={() => setShowCuisineDropdown(!showCuisineDropdown)}
+              onBlur={() => setTimeout(() => setShowCuisineDropdown(false), 200)}
+              disabled={isLoading}
+              className="cuisine-selector-button"
+            >
+              {cuisineOptions.find(opt => opt.value === cuisineType)?.label || 'Any Cuisine'}
+              <span className="cuisine-selector-arrow">▼</span>
+            </button>
+            {showCuisineDropdown && (
+              <div className="cuisine-dropdown">
+                {cuisineOptions.map((option) => (
+                  <div
+                    key={option.value}
+                    className={`cuisine-option ${cuisineType === option.value ? 'selected' : ''}`}
+                    onMouseDown={(e) => {
+                      e.preventDefault()
+                      setCuisineType(option.value)
+                      setShowCuisineDropdown(false)
+                    }}
+                  >
+                    {option.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className="input-wrapper">
             <input

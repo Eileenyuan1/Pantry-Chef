@@ -40,23 +40,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
         try:
             # Generate recipe using AI (Groq or OpenAI)
             recipe_data = generate_recipe(ingredients, cuisine_preference)
-            
-            # Save recipe to database
-            recipe = Recipe.objects.create(
-                title=recipe_data['title'],
-                description=recipe_data.get('description', ''),
-                cuisine_type=recipe_data.get('cuisine_type', 'western'),
-                ingredients=recipe_data.get('ingredients', []),
-                instructions=recipe_data.get('instructions', ''),
-                cooking_time=recipe_data.get('cooking_time'),
-                user_ingredients=', '.join(ingredients)
-            )
-            
-            # Serialize and return the recipe
-            response_serializer = RecipeSerializer(recipe)
+
+            # TODO: Save recipe to database after implementing user login
+            # recipe = Recipe.objects.create(
+            #     title=recipe_data['title'],
+            #     description=recipe_data.get('description', ''),
+            #     cuisine_type=recipe_data.get('cuisine_type', 'western'),
+            #     ingredients=recipe_data.get('ingredients', []),
+            #     instructions=recipe_data.get('instructions', ''),
+            #     cooking_time=recipe_data.get('cooking_time'),
+            #     user_ingredients=', '.join(ingredients)
+            # )
+            # response_serializer = RecipeSerializer(recipe)
+            # return Response(
+            #     response_serializer.data,
+            #     status=status.HTTP_201_CREATED
+            # )
+
+            # Return the generated recipe data directly without saving
             return Response(
-                response_serializer.data,
-                status=status.HTTP_201_CREATED
+                recipe_data,
+                status=status.HTTP_200_OK
             )
             
         except ValueError as e:

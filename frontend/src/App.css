@@ -77,13 +77,13 @@
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-radius: 24px;
   padding: 40px;
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 2px 8px rgba(0, 0, 0, 0.04);
   border: 2px solid rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .main-content::before {
